@@ -1,0 +1,17 @@
+{
+  "name": "project-1",
+  "version": "1.0.0",
+  "description": "blockchain web3js",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ahmed Salah",
+  "license": "ISC",
+  "dependencies": {
+    "ethereumjs-tx": "^2.1.2",
+    "express": "^4.17.1",
+    "truffle": "^5.4.11",
+    "web3": "^1.5.2"
+  }
+}
