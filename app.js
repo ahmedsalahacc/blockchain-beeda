@@ -1,6 +1,6 @@
 const express = require("express"),
   cors = require("cors"),
-  { getNextGenDate, getAllTokens, getToken } = require("./utils");
+  { getNextGenDate, getAllTokens, getToken, getLastToken } = require("./utils");
 
 /*--global variables--*/
 const app = express();
@@ -29,7 +29,11 @@ app.get("/assets/:id", async function (req, res) {
   res.json(data);
 });
 
-// functions handling
+app.get("/assets", async function (req, res) {
+  // return the last token in the assets collection
+  const data = await getLastToken();
+  res.redirect("/assets/" + data);
+});
 
 app.listen(3500, function () {
   console.log("App Started");

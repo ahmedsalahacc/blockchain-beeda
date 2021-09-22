@@ -1,10 +1,10 @@
 const Web3 = require("web3");
-const bedaContract = require("./contracts/bedaNFT.json");
+const bedaContract = require("./contracts/NFT.json");
 
-/*--server functions--*/
+/*--global variables--*/
 const web3 = new Web3("wss://matic-testnet-archive-ws.bwarelabs.com");
-const address = "0xC84677187d8817c4768F6DE898DE7DC3b4Cb4a37";
-const contract = new web3.eth.Contract(bedaContract.abi, address);
+const address = "0x2e284fbc1a112a591bd6f75510d56d6b3d5a9539";
+const contract = new web3.eth.Contract(bedaContract, address);
 const opensea_url = "https://testnets.opensea.io/assets/mumbai/" + address;
 
 /*--server functions--*/
@@ -68,4 +68,11 @@ const getToken = async (token_id) => {
   return new_token;
 };
 
-module.exports = { getNextGenDate, getAllTokens, getToken };
+//Gets token data for specific item
+const getLastToken = async () => {
+  let counts = await contract.methods.tokenCounter().call();
+  counts = Number.parseInt(counts);
+  return counts - 1;
+};
+
+module.exports = { getNextGenDate, getAllTokens, getToken, getLastToken };
