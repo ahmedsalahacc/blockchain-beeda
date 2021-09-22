@@ -5,7 +5,7 @@ const express = require("express"),
 /*--global variables--*/
 const app = express();
 app.use(cors());
-
+err_msg = "Error occured";
 /*--server routes--*/
 app.get("/nextgen/date", async function (req, res) {
   // return the time to next generation
@@ -26,7 +26,7 @@ app.get("/assets/:id", async function (req, res) {
   // return the time to next generation
   let id = req.params.id;
   let data = await getToken(id);
-  res.json(data);
+  res.json([data]);
 });
 
 app.get("/assets", async function (req, res) {

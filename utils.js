@@ -4,21 +4,24 @@ const bedaContract = require("./contracts/NFT.json");
 /*--global variables--*/
 const web3 = new Web3("wss://matic-testnet-archive-ws.bwarelabs.com");
 const address = "0x2e284fbc1a112a591bd6f75510d56d6b3d5a9539";
-const contract = new web3.eth.Contract(bedaContract, address);
 const opensea_url = "https://testnets.opensea.io/assets/mumbai/" + address;
 
 /*--server functions--*/
 //Gets the date of the next generation
 const getNextGenDate = async () => {
+  const contract = new web3.eth.Contract(bedaContract, address);
   let result = await contract.methods.getNextGenTime().call();
 
   result = Number.parseInt(result);
-  let test = new Date(result);
+  console.log(result);
+  let test = new Date(result * 1000); // to ms
   return test.toUTCString();
 };
 
 //Gets all tokens data from the contract
 const getAllTokens = async () => {
+  const contract = new web3.eth.Contract(bedaContract, address);
+
   // get all tokens
   let counts = await contract.methods.tokenCounter().call();
   let tokens = [];
@@ -47,6 +50,8 @@ const getAllTokens = async () => {
 
 //Gets token data for specific item
 const getToken = async (token_id) => {
+  const contract = new web3.eth.Contract(bedaContract, address);
+
   let token_object = await contract.methods.tokenURI(token_id).call();
   let token_owner = await contract.methods.ownerOf(token_id).call();
   token_object = JSON.parse(token_object);
@@ -70,6 +75,8 @@ const getToken = async (token_id) => {
 
 //Gets token data for specific item
 const getLastToken = async () => {
+  const contract = new web3.eth.Contract(bedaContract, address);
+
   let counts = await contract.methods.tokenCounter().call();
   counts = Number.parseInt(counts);
   return counts - 1;
